@@ -4,3 +4,9 @@ data
 models
 *.swp
 *.p
+saved_sessions*
+*.s
+__pycache__/
+checkpoint
+jupyter
+temp.*
