@@ -1,4 +1,3 @@
-data
 .ipynb_checkpoints
 *.h5
 models
@@ -7,6 +6,6 @@ models
 saved_sessions*
 *.s
 __pycache__/
-checkpoint
 jupyter
 temp.*
+datasets*
