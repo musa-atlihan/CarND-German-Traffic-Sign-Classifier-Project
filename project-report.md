@@ -14,6 +14,6 @@ The dataset is split into three parts as the train, validation and the test sets
 
 All the images in these sets has the same dimensions as 32x32 pixels of height and width and 3 (RGB) color channels. The total number of classes of the traffic signs is 43. The traffic sign examples from the same classes was captured in different ligthing conditions, from different viewpoints, some of them had 15x15 input resolution (all the images are resized to 32x32) and some of the examples have physical damage, graffiti and stickers. Some of the images for each class from the train and the test sets can be seen below.
 
-The train set examples   |  The test set examples
-:-------------------------:|:-------------------------:
-![The train set examples](./images/train-set.png)  |  ![The test set examples](./images/test-set.png)
+|  The Visualization of Some of The Test Set Examples |
+|:-------------------------:|
+|  ![The test set examples](./images/test-set.png) |
