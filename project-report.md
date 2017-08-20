@@ -48,21 +48,22 @@ As mentioned above, the input images has 32x32x3 dimensions which is different f
 
 The LeNet-5 model tuned and trained on the original training and validation sets without any data augmentation applied. In the [training process](./trainer.py), stochastic gradient descent algorithm is used with mini-batch size of 128. Applying Xavier initialization for the weights gives the filexibility to choose larger learning rates ([X. Glorot and Y. Bengio, 2010](http://proceedings.mlr.press/v9/glorot10a.html)). Thus, applying Xavier initialization, the learning rate is taken as 0.1 with an exponential decay. An early stopping algorithm is applied with a limit of maximum number of epochs being 200. After the training, the test set is evaluated with the best model weights performed on the validation set.
 
-The test accuracy with the best model is 92.24% and the f1-score for each class can be seen below.
+The test accuracy with the best model is 92.24% and the f1-score for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
 
 ![lenet-f1-scores](./images/lenet-f1-scores.png)
+
 F1-scores are given for each class. F1-score is a measure of precision and recall is used together. If the model predicts well on a class, that class should have high precision and recall values, which, here in this case, represented by the f1-score values very close to 1. As seen from the plot, most of the classes have very poor f1-score values. Various models with improvements and data augmentation will later be applied for this reason.
 
 
 ### B) The LeNet Architecture with Dropout
 
-Dropout technique prevents neural networks from overfitting ([N. Srivastava, G. Hinton, A. Krizhevsky, I. Sutskever and R. Salakhutdinov, 2014](https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf)). The dropout refers to temporarily removing some of the randomly chosen hidden/visible units in a neural network on the training process. This way the dropout technique breaks up the co-adaptations of the nodes in a layer and the model generalizes well. Thus for the same LeNet-5 architecture above, dropout is applied for the fully connected layers to generalize the model.
+Dropout technique prevents neural networks from overfitting ([N. Srivastava, G. Hinton, A. Krizhevsky, I. Sutskever and R. Salakhutdinov, 2014](https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf)). The dropout refers to temporarily removing some of the randomly chosen hidden/visible units in a neural network on the training process. This way the dropout technique breaks up the co-adaptations of the nodes in a layer and the model generalizes better. Thus for the same LeNet-5 architecture above, dropout is applied for the fully connected layers to generalize the model.
 
 #### The result for LeNet-5 with dropout
 
 The same process of traning is again used for the same LeNet-5 architecture by additionally applying dropout to fully connected layers.
 
-The test accuracy for the best model is 95.52% and the f1-scores can be seen below.
+The test accuracy for the best model is 95.52% and the f1-scores can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
 
 ![lenet-f1-scores](./images/lenet-dropout-f1-scores.png)
 
