@@ -201,7 +201,7 @@ The scaled AlexNet model evaluated on these images by initializing the weights o
 | 1.05825152e-13        | No passing for vehicles over 3.5 metric tons  |
 
 
-#### Top5 probability for image 1 (Speed limit (60km/h))
+#### Top5 probability for image 5 (Speed limit (60km/h))
 
 ![No passing](./collected-data/class_3.png) 
 
