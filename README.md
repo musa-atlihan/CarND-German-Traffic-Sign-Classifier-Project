@@ -78,7 +78,7 @@ The AlexNet model is the [ILSVRC](http://www.image-net.org/challenges/LSVRC/)-20
 
 In the following years, it has also been shown by the other ILSVRC deep convolutional network models that the deep models achieve better results ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)). And even the skip connections help on very deep models that achieve even better results ([K. He, X. Zhang, S. Ren and J. Sun, 2015](https://arxiv.org/abs/1512.03385)). Since the dataset in this project has relatively small images and less classes (43 classes), a [scaled-down AlexNet architecture](./salexnet-equal-n/scaledalexnet.py) is used for the project. The scaled AlexNet has half the number of feature maps in each convolutional layer and half the number of nodes in fully connected layers. In addition, since the image size is relatively small, the kernel sizes are choosen smaller than it is in the original model. And some of the operations are not applied such as Local Response Normalisation which has been reported that it does not improve the model performance ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)).
 
-#### Details of the scaled AlexNet Architecture
+#### Details of the scaled AlexNet architecture
 
 The input images have 32x32x3 dimensions. Layer 1 is a convoltional layer with 3x3 kernel size and 1x1 strides which is followed with ReLu activation operation and 2x2 max pooling with a stride of 2x2. Layer 1 outputs 48 feature maps. Layer 2 has the same kernel as 3x3 with 1x1 stride and a ReLu operation is applied at the end. Layer 2 outputs 128 feature maps. Layer 3 has also 3x3 kernel size and 1x1 stride followed by a ReLu operation, outputs 192 feature maps. Layer 4 is also a convolutional layer with 2x2 kernel size, 1x1 stride and again ReLu operation is applied that outputs 192 feature maps. Layer 5 is the last convolutinal layer having 3x3 kernel size and 1x1 stride. A maxpooling of 2x2 is applied with 2x2 strides after the ReLu operation. The number of the feature maps that layer 5 outputs is 128. After layer 5, the output nodes are flatten as the layer 6 and fully connected to the following layer with 1024 output connections. Layer 7 is also a fully connected layer with 1024 input and 1024 output connections. Dropout technique after the ReLu operations is applied for both of layer 6 and layer 7. Layer 8 is the output layer with 1024 input connections and outputs 43 nodes as being the class logits ([source](./scaledalexnet.py)).
 
@@ -151,7 +151,7 @@ The scaled AlexNet model evaluated on these images by initializing the weights o
 
 #### Top5 probability for image 1 (No passing)
 
-![No passing](./collected-data/resized/resized_9.png) 
+![No passing](./collected-data/class_9.png) 
 
 | Probability           |     Prediction                                | 
 |:---------------------:|:---------------------------------------------:| 
@@ -164,7 +164,7 @@ The scaled AlexNet model evaluated on these images by initializing the weights o
 
 #### Top5 probability for image 2 (Priority road)
 
-![Priority road](./collected-data/resized/resized_12.png) 
+![Priority road](./collected-data/class_12.png) 
 
 | Probability           |     Prediction                                | 
 |:---------------------:|:---------------------------------------------:| 
@@ -177,7 +177,7 @@ The scaled AlexNet model evaluated on these images by initializing the weights o
 
 #### Top5 probability for image 3 (Dangerous curve to the right)
 
-![Dangerous curve right](./collected-data/resized/resized_20.png) 
+![Dangerous curve right](./collected-data/class_20.png) 
 
 | Probability           |     Prediction                                | 
 |:---------------------:|:---------------------------------------------:| 
@@ -190,7 +190,7 @@ The scaled AlexNet model evaluated on these images by initializing the weights o
 
 #### Top5 probability for image 4 (Speed limit (80km/h))
 
-![Speed limit 80](./collected-data/resized/resized_5.png)
+![Speed limit 80](./collected-data/class_5.png)
 
 | Probability           |     Prediction                                | 
 |:---------------------:|:---------------------------------------------:| 
@@ -203,7 +203,7 @@ The scaled AlexNet model evaluated on these images by initializing the weights o
 
 #### Top5 probability for image 1 (Speed limit (60km/h))
 
-![No passing](./collected-data/resized/resized_9.png) 
+![No passing](./collected-data/class_3.png) 
 
 | Probability           |     Prediction                                | 
 |:---------------------:|:---------------------------------------------:| 
