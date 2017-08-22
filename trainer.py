@@ -101,9 +101,6 @@ class Trainer(object):
             done_looping = False
             epoch = 0
             while (epoch < n_epochs) and (not done_looping):
-                X_train, y_train = self.randomize(X_train, y_train)
-                X_valid, y_valid = self.randomize(X_valid, y_valid)
-                X_test, y_test = self.randomize(X_test, y_test)
                 epoch = epoch + 1
                 for minibatch_index in range(n_train_batches):
                     
@@ -121,21 +118,20 @@ class Trainer(object):
                     if (iter + 1) % valid_freq == 0:
                         valid_accuracy, f1_scores = model.evaluate(X_valid, y_valid, sess=sess, f1score=True)
                         this_valid_loss = 1. - valid_accuracy
+                    
+                        print("Minibatch loss at epoch %i and iter %i: %f and the learning rate: %f" % 
+                              (epoch, iter, l, model.learning_rate.eval()))
+                        print("Minibatch train and validation accuracy: %.3f%%, %.3f%%" 
+                            % (train_accuracy * 100., valid_accuracy * 100.))
                         
-                        if (iter + 1) % (8 * valid_freq) == 0:
-                            print("Minibatch loss at epoch %i and iter %i: %f and the learning rate: %f" % 
-                                  (epoch, iter, l, model.learning_rate.eval()))
-                            print("Minibatch train and validation accuracy: %.3f%%, %.3f%%" 
-                                % (train_accuracy * 100., valid_accuracy * 100.))
-                            
-                            #end_time = timeit.default_timer()
-                            #delta_t.append(end_time - prev_time)
-                            #print('Time interval: %.4f seconds, estimated run time for %i epochs: %.4f hours' % 
-                            #        ((end_time - prev_time), n_epochs, 
-                            #        ((reduce(lambda x, y: x + y, delta_t) / len(delta_t)) 
-                            #         * n_epochs * epoch_freq_ratio) / 3600.))
-                            ##print(f1_scores)
-                            #prev_time = end_time
+                        end_time = timeit.default_timer()
+                        delta_t.append(end_time - prev_time)
+                        print('Time interval: %.4f seconds, estimated run time for %i epochs: %.4f hours' % 
+                                ((end_time - prev_time), n_epochs, 
+                                ((reduce(lambda x, y: x + y, delta_t) / len(delta_t)) 
+                                 * n_epochs * epoch_freq_ratio) / 3600.))
+                        #print(f1_scores)
+                        prev_time = end_time
                     
                         if this_valid_loss < best_valid_loss:
                             if this_valid_loss < best_valid_loss * improvement_threshold:
@@ -148,8 +144,7 @@ class Trainer(object):
                             # save f1-scores for the best valid score
                             with open(model_save_dir + '/best-valid-f1-scores.pkl', 'wb') as f:
                                 pickle.dump(f1_scores, f)
-                            if (iter + 1) % (8 * valid_freq) == 0:
-                                print('Model saved')
+                            print('Model saved')
                 
                     if patience <= iter:
                             done_looping = True
