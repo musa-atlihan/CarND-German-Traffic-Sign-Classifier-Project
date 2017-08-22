@@ -138,9 +138,9 @@ class ScaledAlexNet(object):
         n_batches = data_X.shape[0] // self.batch_size
         total_accuracy = 0.
         if f1score:
-            total_TP = np.zeros(data_Y.max() + 1, dtype=np.float32)
-            total_FP = np.zeros(data_Y.max() + 1, dtype=np.float32)
-            total_FN = np.zeros(data_Y.max() + 1, dtype=np.float32)
+            total_TP = np.zeros(self.num_labels, dtype=np.float32)
+            total_FP = np.zeros(self.num_labels, dtype=np.float32)
+            total_FN = np.zeros(self.num_labels, dtype=np.float32)
         for minibatch_index in range(n_batches):
             batch_X = data_X[minibatch_index * self.batch_size:(minibatch_index + 1) * self.batch_size]
             batch_Y = data_Y[minibatch_index * self.batch_size:(minibatch_index + 1) * self.batch_size]
