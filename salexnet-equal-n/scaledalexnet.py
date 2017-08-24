@@ -14,8 +14,8 @@ class ScaledAlexNet(object):
 
     """
 
-    def __init__(self, num_labels, image_size=32, learning_rate=0.01, batch_size=128,
-                 decay_interval=5000):
+    def __init__(
+        self, num_labels, image_size=32, learning_rate=0.01, batch_size=128, decay_interval=5000):
 
         self.num_labels = num_labels
         self.alpha = learning_rate
@@ -29,39 +29,38 @@ class ScaledAlexNet(object):
         tf.reset_default_graph()
         
         # Model Variables
-        self.W_1 = tf.get_variable("W1", shape=[3, 3, 3, 48],
-                                       initializer=tf.contrib.layers.xavier_initializer())
+        self.W_1 = tf.get_variable(
+            "W1", shape=[3, 3, 3, 48], initializer=tf.contrib.layers.xavier_initializer())
         self.b_1 = tf.Variable(tf.zeros([48]))
-        self.W_2 = tf.get_variable("W2", shape=[3, 3, 48, 128],
-                                       initializer=tf.contrib.layers.xavier_initializer())
+        self.W_2 = tf.get_variable(
+            "W2", shape=[3, 3, 48, 128], initializer=tf.contrib.layers.xavier_initializer())
         self.b_2 = tf.Variable(tf.zeros([128]))
-        self.W_3 = tf.get_variable("W3", shape=[3, 3, 128, 192],
-                                       initializer=tf.contrib.layers.xavier_initializer())
+        self.W_3 = tf.get_variable(
+            "W3", shape=[3, 3, 128, 192], initializer=tf.contrib.layers.xavier_initializer())
         self.b_3 = tf.Variable(tf.zeros([192]))
-        self.W_4 = tf.get_variable("W4", shape=[2, 2, 192, 192],
-                                       initializer=tf.contrib.layers.xavier_initializer())
+        self.W_4 = tf.get_variable(
+            "W4", shape=[2, 2, 192, 192], initializer=tf.contrib.layers.xavier_initializer())
         self.b_4 = tf.Variable(tf.zeros([192]))
-        self.W_5 = tf.get_variable("W5", shape=[3, 3, 192, 128],
-                                       initializer=tf.contrib.layers.xavier_initializer())
+        self.W_5 = tf.get_variable(
+            "W5", shape=[3, 3, 192, 128], initializer=tf.contrib.layers.xavier_initializer())
         self.b_5 = tf.Variable(tf.zeros([128]))
         
-        self.W_6 = tf.get_variable("W6", shape=[4 * 4 * 128, 1024],
-                                       initializer=tf.contrib.layers.xavier_initializer())
+        self.W_6 = tf.get_variable(
+            "W6", shape=[4*4*128, 1024], initializer=tf.contrib.layers.xavier_initializer())
         self.b_6 = tf.Variable(tf.zeros([1024]))
-        self.W_7 = tf.get_variable("W7", shape=[1024, 1024],
-                                       initializer=tf.contrib.layers.xavier_initializer())
+        self.W_7 = tf.get_variable(
+            "W7", shape=[1024, 1024], initializer=tf.contrib.layers.xavier_initializer())
         self.b_7 = tf.Variable(tf.zeros([1024]))
-        self.W_8 = tf.get_variable("W8", shape=[1024, self.num_labels],
-                                       initializer=tf.contrib.layers.xavier_initializer())
+        self.W_8 = tf.get_variable(
+            "W8", shape=[1024, self.num_labels], initializer=tf.contrib.layers.xavier_initializer())
         self.b_8 = tf.Variable(tf.zeros([self.num_labels]))
 
         # Parameters
         self.global_step = tf.Variable(0)
-        self.learning_rate = tf.train.exponential_decay(self.alpha, self.global_step, 
-                                                        self.decay_interval, 
-                                                        0.95, staircase=True)
+        self.learning_rate = tf.train.exponential_decay(
+            self.alpha, self.global_step, self.decay_interval, 0.95, staircase=True)
         self.X = tf.placeholder(
-                    tf.float32, shape=(self.batch_size, self.image_size, self.image_size, 3))
+            tf.float32, shape=(self.batch_size, self.image_size, self.image_size, 3))
         self.Y = tf.placeholder(tf.int32, shape=(self.batch_size))
         Y_one_hot = tf.one_hot(self.Y, self.num_labels)
 
@@ -73,7 +72,7 @@ class ScaledAlexNet(object):
         tf.nn.softmax_cross_entropy_with_logits(labels=Y_one_hot, logits=dropout_logits))
         # Optimizer
         self.optimizer = tf.train.GradientDescentOptimizer(self.learning_rate)\
-                            .minimize(self.loss, global_step=self.global_step)
+            .minimize(self.loss, global_step=self.global_step)
         # Prediction and accuracy for train dataset
         train_prediction = tf.equal(tf.argmax(train_logits, 1), tf.argmax(Y_one_hot, 1))
         self.train_accuracy_operation = tf.reduce_mean(tf.cast(train_prediction, tf.float32))
@@ -83,9 +82,9 @@ class ScaledAlexNet(object):
         # F1 scoring
         predictions = tf.one_hot(tf.argmax(self.logits, 1), self.num_labels, dtype=tf.int32)
         actuals = tf.to_int32(Y_one_hot)
-        self.TP = tf.count_nonzero(predictions * actuals, axis=0)
-        self.FP = tf.count_nonzero(predictions * (actuals - 1), axis=0)
-        self.FN = tf.count_nonzero((predictions - 1) * actuals, axis=0)
+        self.TP = tf.count_nonzero(predictions*actuals, axis=0)
+        self.FP = tf.count_nonzero(predictions*(actuals-1), axis=0)
+        self.FN = tf.count_nonzero((predictions-1)*actuals, axis=0)
 
 
 
@@ -111,7 +110,7 @@ class ScaledAlexNet(object):
         pool = tf.nn.max_pool(hidden, [1, 2, 2, 1], [1, 2, 2, 1], padding='VALID')
         
         shape = pool.get_shape().as_list()
-        reshape = tf.reshape(pool, [shape[0], shape[1] * shape[2] * shape[3]])
+        reshape = tf.reshape(pool, [shape[0], shape[1]*shape[2]*shape[3]])
         hidden1 = tf.nn.relu(tf.matmul(reshape, self.W_6) + self.b_6)
         def apply_dropout(hidden):
             dropout = tf.nn.dropout(hidden, 0.5)
@@ -142,24 +141,24 @@ class ScaledAlexNet(object):
             total_FP = np.zeros(self.num_labels, dtype=np.float32)
             total_FN = np.zeros(self.num_labels, dtype=np.float32)
         for minibatch_index in range(n_batches):
-            batch_X = data_X[minibatch_index * self.batch_size:(minibatch_index + 1) * self.batch_size]
-            batch_Y = data_Y[minibatch_index * self.batch_size:(minibatch_index + 1) * self.batch_size]
+            batch_X = data_X[minibatch_index*self.batch_size:(minibatch_index + 1)*self.batch_size]
+            batch_Y = data_Y[minibatch_index*self.batch_size:(minibatch_index + 1)*self.batch_size]
             if f1score:
-                accuracy, TP_, FP_, FN_ = sess.run([self.accuracy_operation,
-                                            self.TP, self.FP, self.FN],
-                                            feed_dict={self.X: batch_X, self.Y: batch_Y})
+                accuracy, TP_, FP_, FN_ = sess.run(
+                    [self.accuracy_operation, self.TP, self.FP, self.FN],
+                    feed_dict={self.X: batch_X, self.Y: batch_Y})
                 total_TP += TP_
                 total_FP += FP_
                 total_FN += FN_
             else:
-                accuracy = sess.run([self.accuracy_operation],
-                                        feed_dict={self.X: batch_X, self.Y: batch_Y})
-            total_accuracy += (accuracy * self.batch_size)
-        accuracy = total_accuracy / (n_batches * self.batch_size)
+                accuracy = sess.run(
+                    [self.accuracy_operation], feed_dict={self.X: batch_X, self.Y: batch_Y})
+            total_accuracy += (accuracy*self.batch_size)
+        accuracy = total_accuracy / (n_batches*self.batch_size)
         if f1score:
             precision = total_TP / (total_TP + total_FP + 1e-6)
             recall = total_TP / (total_TP + total_FN + 1e-6)
-            f1_scores = 2 * precision * recall / (precision + recall + 1e-6)
+            f1_scores = 2*precision*recall / (precision + recall + 1e-6)
             return accuracy, f1_scores
         else:
             return accuracy
@@ -172,7 +171,7 @@ class ScaledAlexNet(object):
         """
         n_batches = data_X.shape[0] // self.batch_size
         for minibatch_index in range(n_batches):
-            batch_X = data_X[minibatch_index * self.batch_size:(minibatch_index + 1) * self.batch_size]
+            batch_X = data_X[minibatch_index*self.batch_size:(minibatch_index + 1)*self.batch_size]
             logits_ = sess.run([self.logits],
                                 feed_dict={self.X: batch_X})
             if minibatch_index == 0:
