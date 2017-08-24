@@ -4,9 +4,9 @@ The aim of this project is to classify the German traffic signs implementing dee
 
 ## The Dataset
 
-The dataset is provided by [German Traffic Sign Recognition Benchmark (GTSRB)](http://benchmark.ini.rub.de/?section=gtsrb). The details of the dataset and the results of the final competition was is reported on [this paper](http://image.diku.dk/igel/paper/MvCBMLAfTSR.pdf) written by J. Stallkamp, M. Schlipsing, J. Salmen and C. Igel.
+The dataset is provided by [German Traffic Sign Recognition Benchmark (GTSRB)](http://benchmark.ini.rub.de/?section=gtsrb). The details of the dataset and the results of the final competition is reported on [this paper](http://image.diku.dk/igel/paper/MvCBMLAfTSR.pdf) written by J. Stallkamp, M. Schlipsing, J. Salmen and C. Igel.
 
-The dataset used in this project is the same dataset provided by INI-GTSRB Benchmark with the images are prepared as downloadable pickle file formats by [Udacity self-driving car nanodegree program](https://www.udacity.com/drive)and is available to download [here](https://drive.google.com/open?id=0B8c3GUF4ZQ-_R29QOWxDTkRJV3c).
+The dataset used in this project is the same dataset provided by INI-GTSRB Benchmark with the images are prepared in downloadable pickle file formats by [Udacity self-driving car nanodegree program](https://www.udacity.com/drive) and is available here [here](https://drive.google.com/open?id=0B8c3GUF4ZQ-_R29QOWxDTkRJV3c).
 
 ### The train, validation and the test sets
 
@@ -28,7 +28,7 @@ It is important to have each class in a dataset has approximately the same numbe
 <img style='width:50%' align='middle' src='./images/freq-test.png'>
 </div>
 
-As seen from the frequency distributions, in each dataset, the number of examples are different for each class. When this is the case, an overfit may occur when training the model. Thus, for the last network model, data augmentation will be applied for train and validation sets. In addition, if the trained model guessing at random or most of the time guesses for a class with high frequency, a simple accuracy evaluation may not reflect the truth. Thus, besides the accuracy evaluation, another error metric called [f1-score](https://en.wikipedia.org/wiki/F1_score), where the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) measures are used together, is also obtained for each class.
+As seen from the frequency distributions, in each dataset, the number of examples are different for each class. When this is the case, an overfit may occur while training the model. Thus, for the final network model ([scaled AlexNet](#c-the-alexnet-architecture)), data augmentation will be applied for train and validation sets. In addition, if the trained model guessing at random or most of the time guesses for a class with high frequency, a simple accuracy evaluation may not reflect the truth. Thus, besides the accuracy evaluation, another error metric called [f1-score](https://en.wikipedia.org/wiki/F1_score), where the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) measures are used together, is also obtained for each class.
 
 
 ## The Model Architectures
@@ -38,7 +38,7 @@ As seen from the frequency distributions, in each dataset, the number of example
 ![LeNet Architecture](./images/lenet.png)
 Source: ([Y. Lecun, L. Bottou, Y. Bengio and P. Haffner, 98](http://ieeexplore.ieee.org/document/726791/))
 
-At first, without any data augmentation, the famous [LeNet-5 architecture](http://ieeexplore.ieee.org/document/726791/) is used for training. A diagram of this architecture is shown above from Lecun's [paper]((http://ieeexplore.ieee.org/document/726791/)). The architecture consists of two convolutional, two subsampling layers, a flattened layer, two fully connected layers and a final output layer of logits. The input to LeNet-5 is 32x32x1 but since the dataset in this project has 3 color chanels, the LeNet architecture takes here images of 32x32x3. For the implementation details, please go to ([this notebook](./Traffic_Sign_Classifier.ipynb)).
+At first, without any data augmentation, the famous [LeNet-5 architecture](http://ieeexplore.ieee.org/document/726791/) is used for training. A diagram of this architecture is shown above from Lecun's [paper]((http://ieeexplore.ieee.org/document/726791/)). The architecture consists of two convolutional, two subsampling layers, a flattened layer, two fully connected layers and a final output layer of logits. The input to original LeNet-5 is 32x32x1 but since the dataset in this project has 3 color chanels, the LeNet architecture takes images of 32x32x3 here. For the implementation details, please visit [this notebook](./Traffic_Sign_Classifier.ipynb).
 
 #### Details of the architecture
 
@@ -48,7 +48,7 @@ As mentioned above, the input images has 32x32x3 dimensions which is different f
 
 The LeNet-5 model tuned and trained on the original training and validation sets without any data augmentation applied. In the [training process](./trainer.py), stochastic gradient descent algorithm is used with mini-batch size of 128. Applying Xavier initialization for the weights gives the filexibility to choose larger learning rates ([X. Glorot and Y. Bengio, 2010](http://proceedings.mlr.press/v9/glorot10a.html)). Thus, applying Xavier initialization, the learning rate is taken as 0.1 with an exponential decay. An early stopping algorithm is implemented within a limit of 200 epochs. After the training, the test set is evaluated with the best model weights performed on the validation set.
 
-As the results, the best validation accuracy is 92.58% and the test accuracy with the best model is 91.18%. The calculated f1-scores for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
+For LeNet-5, best validation accuracy is 92.58% and the test accuracy with the best model is 91.18%. The calculated f1-scores for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
 
 ![lenet-f1-scores](./images/lenet-f1-scores.png)
 
@@ -63,24 +63,22 @@ Dropout technique prevents neural networks from overfitting ([N. Srivastava, G. 
 
 The same process of traning is again used for the same LeNet-5 architecture by additionally implementing dropouts to fully connected layers.
 
-As the results, the best validation accuracy is 98.00% and the test accuracy with the best model is 95.73%. The calculated f1-scores for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
-
-The test accuracy for the best model is 95.52% and the f1-scores can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
+For LeNet-5 with dropout, the best validation accuracy is 98.00% and the test accuracy with the best model is 95.73%. The calculated f1-scores for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
 
 ![lenet-f1-scores](./images/lenet-dropout-f1-scores.png)
 
-The accuracy and the f1-scores for each class are improved indicating that the model generalizes better when dropout is applied. However, for some of the classesi the model still predicts very poorly.
+The accuracy and the f1-scores for each class are improved indicating that the model generalizes better when dropout is applied. However, for some of the classes, the model still predicts very poorly.
 
 
 ### C) The Alexnet Architecture
 
-The AlexNet model is the [ILSVRC](http://www.image-net.org/challenges/LSVRC/)-2012 competition winning, deep convolutional neural network architecture which had considerably better than the previous state-of-the-art results ([A. Krizhevsky, I. Sutskever and G. E. Hinton, 2012](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)). The major difference from the LeNet-5 architecture is that AlexNet has more convolutional layers as being a deeper model. The LeNet-5 was built to train a dataset with 10 clases, while AlexNet was built to predict 1000 clases. In 2012, recently developed advanced GPUs had let this kind of extended deep convolutional network architectures to be trained in a reasonable time for large images of 1000 clases. And the achievements of the AlexNet on large scale images proved the significance of deep convolutional neural networks.
+The AlexNet model is the [ILSVRC](http://www.image-net.org/challenges/LSVRC/)-2012 competition winning, deep convolutional neural network architecture which had error rates considerably better than the previous state-of-the-art results ([A. Krizhevsky, I. Sutskever and G. E. Hinton, 2012](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)). The major difference from the LeNet-5 architecture is that AlexNet has more convolutional layers as being a deeper model. The LeNet-5 was built to train a dataset with 10 clases, however, AlexNet was built to predict 1000 clases. In 2012, recently developed advanced GPUs had let this kind of extended deep convolutional network architectures to be trained in a reasonable time for large images of 1000 clases. The achievements of the AlexNet on large scale images revealed the significance of deep convolutional neural networks.
 
-In the following years, it has also been shown by the other ILSVRC deep convolutional network models that the deep models achieve better results ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)). And even the skip connections help on very deep models that achieve even better results ([K. He, X. Zhang, S. Ren and J. Sun, 2015](https://arxiv.org/abs/1512.03385)). Since the dataset in this project has relatively small images and less classes (43 classes), a [scaled-down AlexNet architecture](./salexnet-equal-n/scaledalexnet.py) is used for the project. The scaled AlexNet has half the number of feature maps in each convolutional layer and half the number of nodes in fully connected layers. In addition, since the image size is relatively small, the kernel sizes are choosen smaller than it is in the original model. And some of the operations are not applied such as Local Response Normalisation which has been reported that it does not improve the model performance ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)).
+In the following years, it has also been shown by the other ILSVRC deep convolutional network models that the deeper models achieve better results ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)). And even the skip connections help on very deep models that achieve even better results ([K. He, X. Zhang, S. Ren and J. Sun, 2015](https://arxiv.org/abs/1512.03385)). Since the dataset in this project has relatively small images and less classes (43 classes), a scaled-down AlexNet architecture ([scaled AlexNet](./scaledalexnet.py)) is used for the project. The scaled AlexNet has half the number of feature maps in each convolutional layer and half the number of nodes in fully connected layers. In addition, since the image size is relatively small, the kernel sizes are choosen smaller than it is in the original model. And some of the operations are not applied such as Local Response Normalisation which has been reported that it does not improve the model performance ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)).
 
 #### Details of the scaled AlexNet architecture
 
-The input images have 32x32x3 dimensions. Layer 1 is a convoltional layer with 3x3 kernel size and 1x1 strides which is followed with ReLu activation operation and 2x2 max pooling with a stride of 2x2. Layer 1 outputs 48 feature maps. Layer 2 has the same kernel as 3x3 with 1x1 stride and a ReLu operation is applied at the end. Layer 2 outputs 128 feature maps. Layer 3 has also 3x3 kernel size and 1x1 stride followed by a ReLu operation, outputs 192 feature maps. Layer 4 is also a convolutional layer with 2x2 kernel size, 1x1 stride and again ReLu operation is applied that outputs 192 feature maps. Layer 5 is the last convolutinal layer having 3x3 kernel size and 1x1 stride. A maxpooling of 2x2 is applied with 2x2 strides after the ReLu operation. The number of the feature maps that layer 5 outputs is 128. After layer 5, the output nodes are flatten as the layer 6 and fully connected to the following layer with 1024 output connections. Layer 7 is also a fully connected layer with 1024 input and 1024 output connections. Dropout technique after the ReLu operations is applied for both of layer 6 and layer 7. Layer 8 is the output layer with 1024 input connections and outputs 43 nodes as being the class logits ([source](./scaledalexnet.py)).
+The input images have 32x32x3 dimensions. Layer 1 is a convoltional layer with 3x3 kernel size and 1x1 strides which is followed with ReLu activation operation and 2x2 max pooling with a stride of 2x2. Layer 1 outputs 48 feature maps. Layer 2 has the same kernel as 3x3 with 1x1 stride and a ReLu operation is applied at the end. Layer 2 outputs 128 feature maps. Layer 3 has also 3x3 kernel size and 1x1 stride followed by a ReLu operation, outputs 192 feature maps. Layer 4 is also a convolutional layer with 2x2 kernel size, 1x1 stride and again ReLu operation is applied that outputs 192 feature maps. Layer 5 is the last convolutinal layer having 3x3 kernel size and 1x1 stride. A maxpooling of 2x2 is applied with 2x2 strides after the ReLu operation. The number of the feature maps that layer 5 outputs is 128. After layer 5, the output nodes are flatten forming the layer 6 and fully connected to the following layer with 1024 output connections. Layer 7 is also a fully connected layer with 1024 input and 1024 output connections. Dropout technique after the ReLu operations is applied for both of layer 6 and layer 7. Layer 8 is the output layer with 43 outputs nodes as being the class logits ([source](./scaledalexnet.py)).
 
 
 #### Data augmentation
@@ -115,11 +113,11 @@ It has been reported by the winner of the [GTSRB](http://benchmark.ini.rub.de/?s
 | 10                    |  95.06%                    |  97.45%               |  21                   |
 
 
-The three models with the best test accuracy (model 3, 4 and 7) is used for ensemble averaging. The f1-scores are given below for these three models.
+The three models with the best test accuracy (model 3, 4 and 7) are used for ensemble averaging. The f1-scores are given below for these three models.
 
 ![ensemble-f1-scores](./images/ens-f1-scores.png)
 
-As it is seen from the plot of f1-scores, each model has a different performance for each class. Thus and averaging of the logits of these models can improve the accuracy on the test set evaluation.
+As can be seen from the plot of f1-scores, each model has a different performance for each class. Thus and averaging of the logits of these models can improve the accuracy on the test set evaluation.
 
 
 By averaging the logits of model 3,4 and 7, accuracy on the test set becomes 98.38% ([source](./ensemble-average-evaluation.ipynb)). The reason each trained model has a different epoch number is, during the training, an early stopping algorithm was used.
@@ -129,7 +127,7 @@ By averaging the logits of model 3,4 and 7, accuracy on the test set becomes 98.
 
 The winning team of the [GTSRB](http://benchmark.ini.rub.de/?section=gtsrb) competition achived 99.46% accuracy on the test set ([D. Ciresan, U. Meier, J. Masci and J. Schmidhuber, 2012](http://www.sciencedirect.com/science/article/pii/S0893608012000524)). And the average human accuracy is reported as 98.84 ([J. Stallkamp, M. Schlipsing, J. Salmen and C. Igel, 2012](http://www.sciencedirect.com/science/article/pii/S0893608012000457)).
 
-With ensemble averaging, scaled AlexNet got an accuracy of 98.38% on the test set. To get even higher accuracies, it is possible to apply extra data augmentation techniques. For example, since the examples have different lighting condisions, applying histogram equalization could help the model to generalize better. In addition, no skip connections ([K. He, X. Zhang, S. Ren and J. Sun, 2015](https://arxiv.org/abs/1512.03385)) or deeper models ([C. Szegedy et al., 2014](https://arxiv.org/abs/1409.4842)) are used in the project, while skip connections are reported as an major factor to improve the performance for other models ([P. Sermanet and Y. LeCun, 2011](http://ieeexplore.ieee.org/document/6033589/)). In addition, using the same model, without implementing an early stopping algorithm and training the model to higher number of epochs could help stochastic gradient descent algorithm to find a better minimum for its loss function to improve the performance.
+With ensemble averaging, scaled AlexNet got an accuracy of 98.38% on the test set. To get even higher accuracies, it is possible to apply extra data augmentation techniques. For instance, since the examples have different lighting condisions, applying histogram equalization could help the model to generalize better. In addition, no skip connections ([K. He, X. Zhang, S. Ren and J. Sun, 2015](https://arxiv.org/abs/1512.03385)) or deeper models ([C. Szegedy et al., 2014](https://arxiv.org/abs/1409.4842)) are used in the project, while skip connections are reported as an major factor to improve the performance for other models ([P. Sermanet and Y. LeCun, 2011](http://ieeexplore.ieee.org/document/6033589/)). In addition, using the same model, without implementing an early stopping algorithm and training the model to even higher number of epochs could help stochastic gradient descent algorithm to find a better minimum for its loss function to improve the performance.
 
 
 ### Testing on New Examples
