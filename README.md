@@ -163,7 +163,7 @@ And the list of class names for top-5 classes are listed in the table below.
 | 8                     | Speed limit (120km/h)                         |
 
 
-When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (no passing) 100% certainty.
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (no passing) with 100% certainty.
 
 
 #### Top-5 probability for image 2 (Speed limit (60km/h))
@@ -185,7 +185,7 @@ And the list of class names for top-5 classes are listed in the table below.
 | **3**                 | **Speed limit (60km/h)**                      |
 | 9                     | No passing                                    |
 
-When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Priority road) 100% certainty.
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, the true class should be the *class 3* (Speed limit (60km/h)), however, model predicts a false class (Speed limit (20km/h)) with 100% certainty.
 
 
 #### Top-5 probability for image 3 (Speed limit (80km/h))
@@ -207,7 +207,7 @@ And the list of class names for top-5 classes are listed in the table below.
 | 1                     | Speed limit (30km/h)                          |
 | 10                    | No passing for vehicles over 3.5 metric tons  |
 
-When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Speed limit (80km/h)) 100% certainty.
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Speed limit (80km/h)) with 100% certainty.
 
 
 #### Top-5 probability for image 4 (Dangerous curve to the right)
@@ -229,7 +229,7 @@ And the list of class names for top-5 classes are listed in the table below.
 | 9                     | No passing                                    |
 | 16                    | Vehicles over 3.5 metric tons prohibited      |
 
-When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Dangerous curve to the right) 100% certainty.
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Dangerous curve to the right) with 100% certainty.
 
 
 #### Top-5 probability for image 5 (Priority road)
@@ -251,4 +251,4 @@ And the list of class names for top-5 classes are listed in the table below.
 | 26                    | Traffic signals                               |
 | 42                    | End of no passing by vehicles over 3.5 metric tons |
 
-When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Priority road) 100% certainty.
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Priority road) with 100% certainty.
