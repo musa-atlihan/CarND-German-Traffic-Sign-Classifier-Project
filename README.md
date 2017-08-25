@@ -135,74 +135,120 @@ All the images are captured in a rainy weather to be able to test the model on h
 |    Images                                                      |  Name                 |  size             |
 |:--------------------------------------------------------------:|:---------------------:|:-----------------:|
 | ![No passing](./collected-data/resized/resized_9.png)          |  No passing           |  32x32x3          |
-| ![Priority road](./collected-data/resized/resized_12.png)      |  Priority road        |  32x32x3          |
-| ![Dangerous curve right](./collected-data/resized/resized_20.png) | Dangerous curve to the right | 32x32x3 |
-| ![Speed limit 80](./collected-data/resized/resized_5.png)      |  Speed limit (80km/h) |  32x32x3          |
 | ![Speed limit 60](./collected-data/resized/resized_3.png)      |  Speed limit (60km/h) |  32x32x3          |
+| ![Speed limit 80](./collected-data/resized/resized_5.png)      |  Speed limit (80km/h) |  32x32x3          |
+| ![Dangerous curve right](./collected-data/resized/resized_20.png) | Dangerous curve to the right | 32x32x3 |
+| ![Priority road](./collected-data/resized/resized_12.png)      |  Priority road        |  32x32x3          |
 
 
 The scaled AlexNet model evaluated on these images by initializing the weights of the best model with the test accuracy of 98.18%. As the result, the model got an accuracy of 80% and predicted 4/5 examples correctly. Top 5 softmax probabilities are given for the each image below.
 
-#### Top5 probability for image 1 (No passing)
+#### Top-5 probability for image 1 (No passing)
 
-![No passing](./collected-data/class_9.png) 
+![No passing](./collected-data/class_9.png)
 
-| Probability           |     Prediction                                | 
+The top-5 unnormalized and top-5 softmax probabilities are given below for the first image.
+
+![Img Unnormalized Probabilities](./images/probs/img11.png)
+![Img Softmax Probabilities](./images/probs/img12.png)
+
+And the list of class names for top-5 classes are listed in the table below.
+
+| Class No              | Sign Name                                     | 
 |:---------------------:|:---------------------------------------------:| 
-| **1.00000000e+00**    | **No passing**                                | 
-| 1.35289637e-08        | No passing for vehicles over 3.5 metric tons  |
-| 1.06118925e-09        | Speed limit (60km/h)                          |
-| 1.15808446e-10        | Speed limit (50km/h)                          |
-| 9.19384846e-11        | Speed limit (120km/h)                         |
+| **9**                 | **No passing**                                | 
+| 10                    | No passing for vehicles over 3.5 metric tons  |
+| 3                     | Speed limit (60km/h)                          |
+| 2                     | Speed limit (50km/h)                          |
+| 8                     | Speed limit (120km/h)                         |
 
 
-#### Top5 probability for image 2 (Priority road)
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (no passing) 100% certainty.
 
-![Priority road](./collected-data/class_12.png) 
 
-| Probability           |     Prediction                                | 
+#### Top-5 probability for image 2 (Speed limit (60km/h))
+
+![Priority road](./collected-data/class_12.png)
+
+The top-5 unnormalized and top-5 softmax probabilities are given below for the second image.
+
+![Img Unnormalized Probabilities](./images/probs/img11.png)
+![Img Softmax Probabilities](./images/probs/img12.png)
+
+And the list of class names for top-5 classes are listed in the table below.
+
+| Class No              | Sign Name                                     | 
 |:---------------------:|:---------------------------------------------:| 
-| **1.00000000e+00**    | **Priority road**                             | 
-| 3.09655501e-09        | Right-of-way at the next intersection         |
-| 1.59932126e-12        | No entry                                      |
-| 7.51019310e-13        | Traffic signals                               |
-| 3.61374044e-13        | End of no passing by vehicles over 3.5 metric tons |
+| 0                     | Speed limit (20km/h)                          | 
+| 8                     | Speed limit (120km/h)                         |
+| 28                    | Children crossing                             |
+| **3**                 | **Speed limit (60km/h)**                      |
+| 9                     | No passing                                    |
+
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Priority road) 100% certainty.
 
 
-#### Top5 probability for image 3 (Dangerous curve to the right)
+#### Top-5 probability for image 3 (Speed limit (80km/h))
 
-![Dangerous curve right](./collected-data/class_20.png) 
+![Dangerous curve right](./collected-data/class_20.png)
 
-| Probability           |     Prediction                                | 
+The top-5 unnormalized and top-5 softmax probabilities are given below for the third image.
+
+![Img Unnormalized Probabilities](./images/probs/img11.png)
+![Img Softmax Probabilities](./images/probs/img12.png)
+
+And the list of class names for top-5 classes are listed in the table below.
+
+| Class No              | Sign Name                                     | 
 |:---------------------:|:---------------------------------------------:| 
-| **1.00000000e+00**    | **Dangerous curve to the right**              | 
-| 6.29055308e-10        | Dangerous curve to the left                   |
-| 2.16328122e-10        | Slippery road                                 |
-| 3.47970784e-11        | No passing                                    |
-| 8.59441099e-14        | Vehicles over 3.5 metric tons prohibited      |
+| **5**                 | **Speed limit (80km/h)**                      | 
+| 3                     | Speed limit (60km/h)                          |
+| 2                     | Speed limit (50km/h)                          |
+| 1                     | Speed limit (30km/h)                          |
+| 10                    | No passing for vehicles over 3.5 metric tons  |
+
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Speed limit (80km/h)) 100% certainty.
 
 
-#### Top5 probability for image 4 (Speed limit (80km/h))
+#### Top-5 probability for image 4 (Dangerous curve to the right)
 
 ![Speed limit 80](./collected-data/class_5.png)
 
-| Probability           |     Prediction                                | 
+The top-5 unnormalized and top-5 softmax probabilities are given below for the fourth image.
+
+![Img Unnormalized Probabilities](./images/probs/img11.png)
+![Img Softmax Probabilities](./images/probs/img12.png)
+
+And the list of class names for top-5 classes are listed in the table below.
+
+| Class No              | Sign Name                                     | 
 |:---------------------:|:---------------------------------------------:| 
-| **9.99999285e-01**    | **Speed limit (80km/h)**                      | 
-| 7.26892040e-07        | Speed limit (60km/h)                          |
-| 3.31280847e-09        | Speed limit (50km/h)                          |
-| 4.42142919e-11        | Speed limit (30km/h)                          |
-| 1.05825152e-13        | No passing for vehicles over 3.5 metric tons  |
+| **20**                | **Dangerous curve to the right**              | 
+| 19                    | Dangerous curve to the left                   |
+| 23                    | Slippery road                                 |
+| 9                     | No passing                                    |
+| 16                    | Vehicles over 3.5 metric tons prohibited      |
+
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Dangerous curve to the right) 100% certainty.
 
 
-#### Top5 probability for image 5 (Speed limit (60km/h))
+#### Top-5 probability for image 5 (Priority road)
 
-![No passing](./collected-data/class_3.png) 
+![No passing](./collected-data/class_3.png)
 
-| Probability           |     Prediction                                | 
+The top-5 unnormalized and top-5 softmax probabilities are given below for the fifth image.
+
+![Img Unnormalized Probabilities](./images/probs/img11.png)
+![Img Softmax Probabilities](./images/probs/img12.png)
+
+And the list of class names for top-5 classes are listed in the table below.
+
+| Class No              | Sign Name                                     | 
 |:---------------------:|:---------------------------------------------:| 
-| 9.99993682e-01        | Speed limit (20km/h)                          | 
-| 6.11884252e-06        | Speed limit (120km/h)                         |
-| 1.69211575e-07        | Children crossing                             |
-| **1.53469841e-07**    | **Speed limit (60km/h)**                      |
-| 2.34251694e-08        | No passing                                    |
+| **12**                | **Priority road**                             | 
+| 11                    | Right-of-way at the next intersection         |
+| 17                    | No entry                                      |
+| 26                    | Traffic signals                               |
+| 42                    | End of no passing by vehicles over 3.5 metric tons |
+
+When the softmax normalization is applied, as can be seen from the plot of softmax probabilities, model predicts the true class (Priority road) 100% certainty.
