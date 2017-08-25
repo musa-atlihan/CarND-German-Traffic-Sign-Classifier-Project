@@ -168,7 +168,7 @@ When the softmax normalization is applied, as can be seen from the plot of softm
 
 #### Top-5 probability for image 2 (Speed limit (60km/h))
 
-![Priority road](./collected-data/class_12.png)
+![Priority road](./collected-data/class_3.png)
 
 The top-5 unnormalized and top-5 softmax probabilities are given below for the second image.
 
@@ -190,7 +190,7 @@ When the softmax normalization is applied, as can be seen from the plot of softm
 
 #### Top-5 probability for image 3 (Speed limit (80km/h))
 
-![Dangerous curve right](./collected-data/class_20.png)
+![Dangerous curve right](./collected-data/class_5.png)
 
 The top-5 unnormalized and top-5 softmax probabilities are given below for the third image.
 
@@ -212,7 +212,7 @@ When the softmax normalization is applied, as can be seen from the plot of softm
 
 #### Top-5 probability for image 4 (Dangerous curve to the right)
 
-![Speed limit 80](./collected-data/class_5.png)
+![Speed limit 80](./collected-data/class_20.png)
 
 The top-5 unnormalized and top-5 softmax probabilities are given below for the fourth image.
 
@@ -234,7 +234,7 @@ When the softmax normalization is applied, as can be seen from the plot of softm
 
 #### Top-5 probability for image 5 (Priority road)
 
-![No passing](./collected-data/class_3.png)
+![No passing](./collected-data/class_12.png)
 
 The top-5 unnormalized and top-5 softmax probabilities are given below for the fifth image.
 
