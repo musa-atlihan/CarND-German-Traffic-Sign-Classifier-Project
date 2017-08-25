@@ -22,7 +22,7 @@ All the images in these sets has the same dimensions of 32x32 pixels of height a
 
 It is important to have each class in a dataset has approximately the same number of examples. The graphs below shows the frequency distribution of the classes in train, validation and test sets.
 
-[Number of examples in classes](./images/multi_hist_classes.png)
+![Number of examples in classes](./images/multi_hist_classes.png)
 
 As seen from the frequency distributions, in each dataset, the number of examples are different for each class. When this is the case, an overfit may occur while training the model. Thus, for the final network model ([scaled AlexNet](#c-the-alexnet-architecture)), data augmentation will be applied for train and validation sets. In addition, if the trained model guessing at random or most of the time guesses for a class with high frequency, a simple accuracy evaluation may not reflect the truth. Thus, besides the accuracy evaluation, another error metric called [f1-score](https://en.wikipedia.org/wiki/F1_score), where the [precision and recall](https://en.wikipedia.org/wiki/Precision_and_recall) measures are used together, is also obtained for each class.
 
