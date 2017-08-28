@@ -22,6 +22,17 @@ class ScaledAlexNet(object):
         self.batch_size = batch_size
         self.image_size = image_size
         self.decay_interval = decay_interval
+
+    def write_graph(self, path=None):
+        """Write graph"""
+
+        if path is None:
+            path = 'logs'
+        if not os.path.exists(path):
+            os.makedirs(path)
+
+        g = tf.get_default_graph()
+        tf.summary.FileWriter(path, g).close()
         
     def init_model(self):
         """Call this method just before using the model."""
@@ -86,8 +97,6 @@ class ScaledAlexNet(object):
         self.FP = tf.count_nonzero(predictions*(actuals-1), axis=0)
         self.FN = tf.count_nonzero((predictions-1)*actuals, axis=0)
 
-
-
     def get_logits(self, X, dropout=False):
         """Get the logits of the top layer.
         
@@ -125,7 +134,6 @@ class ScaledAlexNet(object):
         else:
             return logits
 
-
     def evaluate(self, data_X, data_Y, sess=None, f1score=False):
         """Get accuracy using minibatches.
         
@@ -162,7 +170,6 @@ class ScaledAlexNet(object):
             return accuracy, f1_scores
         else:
             return accuracy
-
 
     def get_class_scores(self, data_X, sess):
         """Get class scores using minibatches.
