@@ -34,17 +34,17 @@ As seen from the frequency distributions, in each dataset, the number of example
 ![LeNet Architecture](./images/lenet.png)
 Source: ([Y. Lecun, L. Bottou, Y. Bengio and P. Haffner, 98](http://ieeexplore.ieee.org/document/726791/))
 
-At first, without any data augmentation, the famous [LeNet-5 architecture](http://ieeexplore.ieee.org/document/726791/) is used for training. A diagram of this architecture is shown above from Lecun's [paper]((http://ieeexplore.ieee.org/document/726791/)). The architecture consists of two convolutional, two subsampling layers, a flattened layer, two fully connected layers and a final output layer of logits. The input to original LeNet-5 is 32x32x1 but since the dataset in this project has 3 color chanels, the LeNet architecture takes images of 32x32x3 here. For the implementation details, please visit [this notebook](./Traffic_Sign_Classifier.ipynb).
+At first, without any data augmentation, the famous [LeNet-5 architecture](http://ieeexplore.ieee.org/document/726791/) is used for training. A diagram of this architecture is shown above from Lecun's [paper]((http://ieeexplore.ieee.org/document/726791/)). The architecture consists of two convolutional, two subsampling layers, a flattened layer, two fully connected layers and a final output layer of logits. The input to original LeNet-5 is 32x32x1 but since the dataset in this project has 3 color chanels, the LeNet architecture takes images of 32x32x3 here. For the implementation details, please visit [this notebook](./Traffic_Sign_Classifier.ipynb#Model-Architecture).
 
 #### Details of the architecture
 
-As mentioned above, the input images has 32x32x3 dimensions which is different from original LeNet by having 3 color dimensions instead of 1. Layer 1 of the model is a convolutional layer having 5x5 kernel size with stride of 1x1 and outputs 6 feature maps. After layer 1, a ReLu activation function and a 2x2 max pooling with a stride of 2x2 are applied. Layer 2 is again a convolutional layer with 5x5 kernel size and have 1x1 stride, layer 2 outputs 16 feature maps. And again, ReLu activation function and a 2x2 max pooling with a stride of 2x2 are applied. After these operations, the feature maps are flattened to form the layer 3 which is fully connected to the following layer. Layer 3 has 400 input and 120 output connections. The layer 4 is a fully connected layer takes 120 inputs and outputs 84 with ReLu activation function is applied. The layer 5 is the final layer and it has 84 connections as the input from the previous layer and, differently from the original LeNet-5, outputs 43 logits that is one for each class.
+As mentioned above, the input images (normalized and zero-centered) have 32x32x3 dimensions which is different from original LeNet by having 3 color dimensions instead of 1. Layer 1 of the model is a convolutional layer having 6 kernels of size 5x5x3 with a stride of 1x1. After layer 1, a rectified linear unit (ReLu) activation and a 2x2 max pooling with a stride of 2x2 are applied. Layer 2 is again a convolutional layer with 16 kernels of size 5x5x6 and 1x1 stride. And again, ReLu activation function and a 2x2 max pooling with a stride of 2x2 are applied. After these operations, the feature maps are flattened and connected to the layer 3 which is a fully connected layer. Layer 3 has 120 nodes and ReLu is applied to the output. The layer 4 is also a fully connected layer and has 84 nodes with ReLu activation function is applied to the output. The layer 5 is the output layer with 43 nodes.
 
 #### The training and the results for Lenet-5 architecture
 
 The LeNet-5 model tuned and trained on the original training and validation sets without any data augmentation applied. In the [training process](./trainer.py), stochastic gradient descent algorithm is used with mini-batch size of 128. Applying Xavier initialization for the weights gives the filexibility to choose larger learning rates ([X. Glorot and Y. Bengio, 2010](http://proceedings.mlr.press/v9/glorot10a.html)). Thus, applying Xavier initialization, the learning rate is taken as 0.1 with an exponential decay. An early stopping algorithm is implemented within a limit of 200 epochs. After the training, the test set is evaluated with the best model weights performed on the validation set.
 
-For LeNet-5, best validation accuracy is 92.58% and the test accuracy with the best model is 91.18%. The calculated f1-scores for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
+For LeNet-5, best validation accuracy is 92.58% and the test accuracy with the best model is 91.18%. The calculated f1-scores for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb#LeNet-without-dropout)).
 
 ![lenet-f1-scores](./images/lenet-f1-scores.png)
 
@@ -59,7 +59,7 @@ Dropout technique prevents neural networks from overfitting ([N. Srivastava, G. 
 
 The same process of traning is again used for the same LeNet-5 architecture by additionally implementing dropouts to fully connected layers.
 
-For LeNet-5 with dropout, the best validation accuracy is 98.00% and the test accuracy with the best model is 95.73%. The calculated f1-scores for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb)).
+For LeNet-5 with dropout, the best validation accuracy is 98.00% and the test accuracy with the best model is 95.73%. The calculated f1-scores for each class can be seen below ([source](./Traffic_Sign_Classifier.ipynb#LeNet-with-dropout)).
 
 ![lenet-f1-scores](./images/lenet-dropout-f1-scores.png)
 
@@ -70,11 +70,36 @@ The accuracy and the f1-scores for each class are improved indicating that the m
 
 The AlexNet model is the [ILSVRC](http://www.image-net.org/challenges/LSVRC/)-2012 competition winning, deep convolutional neural network architecture which had error rates considerably better than the previous state-of-the-art results ([A. Krizhevsky, I. Sutskever and G. E. Hinton, 2012](https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks)). The major difference from the LeNet-5 architecture is that AlexNet has more convolutional layers as being a deeper model. The LeNet-5 was built to train a dataset with 10 clases, however, AlexNet was built to predict 1000 clases. In 2012, recently developed advanced GPUs had let this kind of extended deep convolutional network architectures to be trained in a reasonable time for large images of 1000 clases. The achievements of the AlexNet on large scale images revealed the significance of deep convolutional neural networks.
 
-In the following years, it has also been shown by the other ILSVRC deep convolutional network models that the deeper models achieve better results ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)). And even the skip connections help on very deep models that achieve even better results ([K. He, X. Zhang, S. Ren and J. Sun, 2015](https://arxiv.org/abs/1512.03385)). Since the dataset in this project has relatively small images and less classes (43 classes), a scaled-down AlexNet architecture ([scaled AlexNet](./scaledalexnet.py)) is used for the project. The scaled AlexNet has half the number of feature maps in each convolutional layer and half the number of nodes in fully connected layers. In addition, since the image size is relatively small, the kernel sizes are choosen smaller than it is in the original model. And some of the operations are not applied such as Local Response Normalisation which has been reported that it does not improve the model performance ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)).
+In the following years, it has also been shown by the other ILSVRC deep convolutional network models that the deeper models achieve better results ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)). And even the skip connections help on very deep models that achieve even better results ([K. He, X. Zhang, S. Ren and J. Sun, 2015](https://arxiv.org/abs/1512.03385)). Since the dataset in this project has relatively small images and less classes (43 classes), a scaled-down AlexNet architecture ([scaled AlexNet](./scaledalexnet.py)) is used for the project. The scaled AlexNet has half the number of feature maps in each convolutional layer and half the number of nodes in fully connected layers. In addition, since the image size is relatively small, the kernel sizes are choosen smaller than it is in the original model. And some of the operations are not applied such as local response normalization which has been reported that it does not improve the model performance ([K. Simonyan and A. Zisserman, 2014](https://arxiv.org/abs/1409.1556)).
 
 #### Details of the scaled AlexNet architecture
 
-The input images have 32x32x3 dimensions. Layer 1 is a convoltional layer with 3x3 kernel size and 1x1 strides which is followed with ReLu activation operation and 2x2 max pooling with a stride of 2x2. Layer 1 outputs 48 feature maps. Layer 2 has the same kernel as 3x3 with 1x1 stride and a ReLu operation is applied at the end. Layer 2 outputs 128 feature maps. Layer 3 has also 3x3 kernel size and 1x1 stride followed by a ReLu operation, outputs 192 feature maps. Layer 4 is also a convolutional layer with 2x2 kernel size, 1x1 stride and again ReLu operation is applied that outputs 192 feature maps. Layer 5 is the last convolutinal layer having 3x3 kernel size and 1x1 stride. A maxpooling of 2x2 is applied with 2x2 strides after the ReLu operation. The number of the feature maps that layer 5 outputs is 128. After layer 5, the output nodes are flatten forming the layer 6 and fully connected to the following layer with 1024 output connections. Layer 7 is also a fully connected layer with 1024 input and 1024 output connections. Dropout technique after the ReLu operations is applied for both of layer 6 and layer 7. Layer 8 is the output layer with 43 outputs nodes as being the class logits ([source](./scaledalexnet.py)).
+The first layer is a convoltional layer filters normalized and zero-centered 32x32x3 input images with 48 kernels of size 3x3x3. Layer 2 takes the output of layer 1 and filters with 128 kernels of size 3x3x48. The third and the fourth convolutional layers have 192 kernels of sizes 3x3x128 and 2x2x192 respectively. The fifth layer is the last convolutinal layer having 128 kernels of size 3x3x192. The ReLu activation function is applied to the outputs of all convolutional layers and a 2x2 max pooling operations with 2x2 strides are applied after the ReLu operations of layer 1 and layer 5. After the layer 5, the following two layers are fully connected layers with 1024 nodes. ReLu operation and dropout are applied to the outputs of fully connected layers while training. Layer 8 is the output layer with 43 nodes ([source](./scaledalexnet.py)).
+
+A detailed list of layers and operations are given in the table below.
+
+| Layers and Operations                     | Details                                       | 
+|:-----------------------------------------:|:---------------------------------------------:| 
+| Input                                     | 32x32x3 RGB image                             | 
+| Convolution 3x3x3                         | 48 kernels, 1x1 stride, valid padding         |
+| RELU                                      |                                               |
+| 2x2 max pooling                           | 2x2 stride                                    |
+| Convolution 3x3x48                        | 128 kernels, 1x1 stride, valid padding        |
+| RELU                                      |                                               |
+| Convolution 3x3x128                       | 192 kernels, 1x1 stride, valid padding        |
+| RELU                                      |                                               |
+| Convolution 2x2x192                       | 192 kernels, 1x1 stride, valid padding        |
+| RELU                                      |                                               |
+| Convolution 3x3x192                       | 128 kernels, 1x1 stride, valid padding        |
+| RELU                                      |                                               |
+| 2x2 max pooling                           | 2x2 stride                                    |
+| Flatten                                   | 2048 nodes, flatten the output of previous conv. layer    |
+| Fully connected                           | 1024 nodes                                    |
+| RELU                                      |                                               |
+| Fully connected                           | 1024 nodes                                    |
+| RELU                                      |                                               |
+| Softmax                                   | 43 output nodes                               |
+|                                           |                                               |
 
 
 #### Data augmentation
@@ -103,7 +128,7 @@ It has been reported by the winner of the [GTSRB](http://benchmark.ini.rub.de/?s
 | **4**                 |  **96.03%**                |  **98.19%**           |  **55**               |
 | 5                     |  96.28%                    |  97.76%               |  57                   |
 | 6                     |  95.93%                    |  97.88%               |  21                   |
-| **7**                 |  **96.56%**                |  **98.00%**           |  **65**               |
+| **7**                 |  **96.56%** p               |  **98.00%**           |  **65**               |
 | 8                     |  96.45%                    |  97.66%               |  79                   |
 | 9                     |  94.91%                    |  97.47%               |  27                   |
 | 10                    |  95.06%                    |  97.45%               |  21                   |
