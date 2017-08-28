@@ -79,7 +79,7 @@ The first layer is a convoltional layer filters normalized and zero-centered 32x
 A detailed list of layers and operations are given in the table below.
 
 | Layers and Operations                     | Details                                       | 
-|:-----------------------------------------:|:---------------------------------------------:| 
+|:------------------------------------------|:----------------------------------------------| 
 | Input                                     | 32x32x3 RGB image                             | 
 | Convolution 3x3x3                         | 48 kernels, 1x1 stride, valid padding         |
 | RELU                                      |                                               |
