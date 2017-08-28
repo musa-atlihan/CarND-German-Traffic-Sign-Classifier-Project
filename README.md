@@ -197,8 +197,8 @@ When the softmax normalization is applied, as can be seen from the plot of softm
 
 The top-5 unnormalized and top-5 softmax probabilities are given below for the second image.
 
-![Img Unnormalized Probabilities](./images/probs/img11.png)
-![Img Softmax Probabilities](./images/probs/img12.png)
+![Img Unnormalized Probabilities](./images/probs/img21.png)
+![Img Softmax Probabilities](./images/probs/img22.png)
 
 And the list of class names for top-5 classes are listed in the table below.
 
@@ -219,8 +219,8 @@ When the softmax normalization is applied, as can be seen from the plot of softm
 
 The top-5 unnormalized and top-5 softmax probabilities are given below for the third image.
 
-![Img Unnormalized Probabilities](./images/probs/img11.png)
-![Img Softmax Probabilities](./images/probs/img12.png)
+![Img Unnormalized Probabilities](./images/probs/img31.png)
+![Img Softmax Probabilities](./images/probs/img32.png)
 
 And the list of class names for top-5 classes are listed in the table below.
 
@@ -241,8 +241,8 @@ When the softmax normalization is applied, as can be seen from the plot of softm
 
 The top-5 unnormalized and top-5 softmax probabilities are given below for the fourth image.
 
-![Img Unnormalized Probabilities](./images/probs/img11.png)
-![Img Softmax Probabilities](./images/probs/img12.png)
+![Img Unnormalized Probabilities](./images/probs/img41.png)
+![Img Softmax Probabilities](./images/probs/img42.png)
 
 And the list of class names for top-5 classes are listed in the table below.
 
@@ -263,8 +263,8 @@ When the softmax normalization is applied, as can be seen from the plot of softm
 
 The top-5 unnormalized and top-5 softmax probabilities are given below for the fifth image.
 
-![Img Unnormalized Probabilities](./images/probs/img11.png)
-![Img Softmax Probabilities](./images/probs/img12.png)
+![Img Unnormalized Probabilities](./images/probs/img51.png)
+![Img Softmax Probabilities](./images/probs/img52.png)
 
 And the list of class names for top-5 classes are listed in the table below.
 
